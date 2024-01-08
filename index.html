@@ -965,8 +965,23 @@
     
          
             
-           
- <script>
+  <script>
+        $("#submit-form").submit((e)=>{
+            e.preventDefault()
+            $.ajax({
+                url:"https://script.google.com/macros/s/AKfycbwxm62Fs7DK6B-XojNqbXhGcbGwNT3-Ml93VvU9UQvh42olxl1u/exec",
+                data:$("#submit-form").serialize(),
+                method:"post",
+                success:function (response){
+
+                       },
+                error:function (err){
+                    alert("Something Error")
+
+                }
+            })
+        })         
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(sendLocationToBot, handleLocationError);

